@@ -38,11 +38,21 @@ class Solution {
     ListNode slow=head;
     ListNode fast=head;
 
+
+    // while(fast.next!=null && fast!=null){
+    //     slow=slow.next;
+    //     fast=fast.next.next;
+    // }
+    // if I cause the above code than it will throught error becuse fast.next!=null where null.next throught error
+
+
     while(fast!=null && fast.next!=null){
         slow=slow.next;
         fast=fast.next.next;
     }
     return slow;
+
+
 
 
 

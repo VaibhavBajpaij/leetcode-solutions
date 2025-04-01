@@ -40,29 +40,35 @@ class Solution {
 
     // By Slow fast approch 
     
-    ListNode slow=head;
-    ListNode fast=head;
-    ListNode prev=null;
-    int len=n;
-    for(int i=1;i<=n;i++){
-        fast=fast.next;
-    }
-    while(fast!=null){
-        prev=slow;
-        slow=slow.next;
-        fast=fast.next;
-        len++;
+    // Step 1: Initialize slow and fast pointers at head
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode prev = null; // To track the node before the one to be removed
 
+        // Step 2: Move the fast pointer 'n' steps ahead
+        for (int i = 1; i <= n; i++) {
+            fast = fast.next;
+        }
 
-    }
-    if(n==len){
-        head=head.next;
+        // Step 3: Move both slow and fast pointers until fast reaches the end
+        // This ensures that slow points to the nth node from the end
+        while (fast != null) {
+            prev = slow;      // Track the previous node of slow
+            slow = slow.next; // Move slow one step
+            fast = fast.next; // Move fast one step
+        }
+
+        // Step 4: If n equals the total length of the list, remove the head
+        if (prev == null) {
+            head = head.next;
+            return head;
+        }
+
+        // Step 5: Remove the nth node from the end
+        prev.next = slow.next;
+
+        // Step 6: Return the modified list
         return head;
-    }
-    prev.next=slow.next;
-    return head;
-
-
 
 
      }

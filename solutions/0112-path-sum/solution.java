@@ -25,8 +25,6 @@ class Solution {
             // }
             set.add(v);
 
-
-
         }
         pathsum(root.left,targetSum,v+root.val,set);
         pathsum(root.right,targetSum,v+root.val,set);

@@ -1,69 +1,39 @@
 class Solution {
-     public List<List<Integer>> fourSum(int[] nums, int target) {
-    // List<List<Integer>> ans = new ArrayList<>();
-    // int n = nums.length;
-    // Arrays.sort(nums); // ✅ Optional but helps remove duplicates and maintain order
+    public List<List<Integer>> fourSum(int[] nums, int target) {
 
-    // for (int i = 0; i < n; i++) {
-    //     for (int j = i + 1; j < n; j++) {
-    //         HashSet<Integer> set = new HashSet<>(); // ✅ Fix 1: Move set inside (i,j) loop
-    //         for (int k = j + 1; k < n; k++) {
-    //             int sum = nums[i] + nums[j] + nums[k];
-    //             int def = target - sum;
+        List<List<Integer>> arr=new ArrayList<>();
 
-    //             if (set.contains(def)) {
-    //                 List<Integer> quad = Arrays.asList(nums[i], nums[j], nums[k], def);
-    //                 Collections.sort(quad); // ✅ Fix 2: Sort to maintain consistency
-    //                 if (!ans.contains(quad)) { // ✅ Fix 3: Avoid duplicates
-    //                     ans.add(quad);
-    //                 }
-    //             }
-    //             set.add(nums[k]); // ✅ Fix 4: Add before checking
-    //         }
-    //     }
-    // }
-    // return ans;
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length-3;i++){
+            if(i>0 && nums[i]==nums[i-1]) continue;
+            for(int j=i+1;j<nums.length-2;j++){
+                if(j > i+1 && nums[j]==nums[j-1]) continue;
 
-
-    // Most Optimized Solution
-
-     List<List<Integer>> ans=new ArrayList<>();
-   Arrays.sort(nums);
-     int n=nums.length;
-       
-      for (int i = 0; i < n; i++) {
-            // ✅ Skip duplicates for i
-            if (i > 0 && nums[i] == nums[i - 1]) continue;
-
-            for (int j = i + 1; j < n; j++) {
-                // ✅ Skip duplicates for j
-                if (j > i + 1 && nums[j] == nums[j - 1]) continue;
-
-                int p = j + 1;
-                int q = n - 1;
-
-                while (p < q) {
-                    long sum = (long) nums[i] + nums[j] + nums[p] + nums[q];
-
-                    if (sum == target) {
-                        // ✅ Found a valid quadruplet
-                        ans.add(Arrays.asList(nums[i], nums[j], nums[p], nums[q]));
-                        p++;
-                        q--;
-
-                        // ✅ Skip duplicates for p and q
-                        while (p < q && nums[p] == nums[p - 1]) p++;
-                        while (p < q && nums[q] == nums[q + 1]) q--;
-
-                    } else if (sum < target) {
-                        p++;
+                int s=j+1;
+                int l=nums.length-1;
+                while(s<l){
+                    long curr = (long) nums[i] + nums[j] + nums[s] + nums[l];;
+                    if(curr==target) {
+                        List<Integer> list=new ArrayList<>();
+                        list.add(nums[i]);
+                        list.add(nums[j]);
+                        list.add(nums[s]);
+                        list.add(nums[l]);
+                        // Collections.sort(list);
+                         arr.add(list);
+                         s++;
+                        l--;
+                    
+                  while (s < l && nums[s] == nums[s - 1]) s++;
+                        while (s < l && nums[l] == nums[l + 1]) l--;
+                    }else if (curr < target) {
+                        s++;
                     } else {
-                        q--;
+                        l--;
                     }
                 }
             }
         }
-
-        return ans;
+        return arr;
     }
 }

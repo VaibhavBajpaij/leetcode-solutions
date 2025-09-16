@@ -1,6 +1,14 @@
-# Write your MySQL query statement below
-select employee_id , department_id from Employee 
-where primary_flag='Y' or employee_id in (select employee_id  from Employee 
-group by employee_id 
-having count(*)=1)
+-- Get primary employees OR those who belong to only one department
+SELECT employee_id, department_id
+FROM Employee
+WHERE primary_flag = 'Y'
+
+UNION
+
+SELECT employee_id, department_id
+FROM Employee e
+WHERE primary_flag = 'N'
+  AND (SELECT COUNT(*) 
+       FROM Employee 
+       WHERE employee_id = e.employee_id) = 1;
 

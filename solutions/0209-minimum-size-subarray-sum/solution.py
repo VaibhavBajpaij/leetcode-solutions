@@ -1,21 +1,17 @@
-class Solution(object):
-    def minSubArrayLen(self, target, nums):
-        """
-        :type target: int
-        :type nums: List[int]
-        :rtype: int
-        """
-        x=sys.maxsize
-        start=0
-        sum=0
-        for i in range(len(nums)):
-            sum=sum+nums[i]
-            while(sum>=target):
-                x=min(x,i-start+1)
-                sum=sum-nums[start]
-                start+=1
-        if x==sys.maxsize :
-            return 0
-        return x
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        n = len(nums)
+        left = 0
+        curr = 0
+        ans = float('inf')
 
-        
+        for right in range(n):
+            curr += nums[right]
+
+            while curr >= target:
+                ans = min(ans, right - left + 1)
+                curr -= nums[left]
+                left += 1
+
+        return ans if ans != float('inf') else 0
+

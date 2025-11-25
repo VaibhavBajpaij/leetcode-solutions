@@ -1,0 +1,21 @@
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(0, head)
+        prev = dummy
+        curr = head
+
+        while curr:
+            # Detect duplicates
+            if curr.next and curr.val == curr.next.val:
+                # Skip all nodes with this value
+                while curr.next and curr.val == curr.next.val:
+                    curr = curr.next
+                # Skip the last duplicate
+                curr = curr.next
+                prev.next = curr
+            else:
+                prev = prev.next
+                curr = curr.next
+        
+        return dummy.next
+

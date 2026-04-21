@@ -1,26 +1,21 @@
 class Solution {
     public int[] answerQueries(int[] nums, int[] queries) {
         Arrays.sort(nums);
-
-        for(int i=1;i<nums.length;i++){
-            nums[i]+=nums[i-1];
+        int [] prefix_sum=new int[nums.length];
+        prefix_sum[0]=nums[0];
+        for(int i=1 ;i<nums.length;i++){
+            prefix_sum[i]=prefix_sum[i-1]+nums[i];
+            
         }
-        int m=queries.length;
-        int [] ans=new int [m];
-        for(int i=0;i<m;i++){
-
-            int lo=0;
-            int hi=nums.length-1;
-
-            while(lo<=hi){
-               int mid=lo+(hi-lo)/2;
-                if(nums[mid]>queries[i]) hi=mid-1;
-                else{
-                    ans[i]=Math.max(ans[i],mid+1);
-                    lo=mid+1;
-
-                }
+        int [] ans=new int[queries.length];
+        for(int i=0;i<queries.length;i++){
+            int n=queries[i];
+            int j=0;
+            while( j<nums.length && prefix_sum[j]<=n){
+                j++;
             }
+            ans[i]=j;
+
         }
         return ans;
         

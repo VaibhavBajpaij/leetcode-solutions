@@ -2,10 +2,9 @@ class Solution:
     def longestConsecutive(self, arr: List[int]) -> int:
         if(len(arr)==0):
             return 0
+        
         num=set(arr)
         nums=list(num)
-
-
         nums.sort()
         n=len(nums)
         i=0

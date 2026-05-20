@@ -4,24 +4,55 @@
 #         self.val = val
 #         self.next = next
 class Solution:
+    def reverse(self,head):
+        curr=head
+        prev=None
+
+        while(curr!=None):
+            right=curr.next
+            curr.next=prev
+            prev=curr
+            curr=right
+        return prev
+        
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        if not head:
+        if head is None or head.next is None:
+            return head
+        
+
+        #length
+        len=0
+        temp=head
+        while(temp!=None):
+            temp=temp.next
+            len+=1
+        a=0
+        if k>len:
+            k=k%len
+        a=k
+        if(a==0):
             return head
 
-        tail = head
-        n=1
-        while(tail.next!=None):
-            tail=tail.next
-            n+=1
-        k=k%n
-        if(k==0):
-            return head
-        tail.next=head
-        new_head=head
-        for i in range(n-k-1):
-            new_head=new_head.next
-        new_tail=new_head
-        new_head=new_head.next
-        new_tail.next=None
-        return new_head
+        head1=self.reverse(head)
+        temp=head1
+        
+        prev=head1
+        l=0
+        while(l<a-1):
+            prev=prev.next
+            l+=1
+        h2=prev.next
+        prev.next=None
+        h1=head1
+        ans=self.reverse(h1)
+        tail=self.reverse(h2)
+        head1.next=tail
+        return ans
+
+
+
+
+
+            
+
         

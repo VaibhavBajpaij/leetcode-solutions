@@ -1,32 +1,36 @@
-class Solution(object):
-    def myAtoi(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        s=s.strip()
-        sign=1
+class Solution:
+    def myAtoi(self, s: str) -> int:
         i=0
-        if not s :
+        while(i<len(s) and s[i]==" "):
+            i+=1
+        s=s[i:]
+
+        sign=1
+        if not s:
             return 0
         if(s[0]=='-'):
-            sign=-1
-            i+=1
+            sign*=-1
+            s=s[1:]
         elif(s[0]=='+'):
-            sign=+1
+            s=s[1:]
+            
+        i=0
+        while(i<len(s) and s[i]=="0"):
             i+=1
         ans=0
-        while( i<len(s) and s[i].isdigit()):
-            ans=ans*10+int(s[i])
-            i+=1
-        intmax=2**31-1
-        intmin=-2**31
-        ans=sign*ans
-        if(ans>intmax):
-            return intmax
-        elif(ans<intmin):
-            return intmin
-        else:
-            return ans
+        s=s[i:]
+        for val in s:
+            if(val in "1234567890"):
+                ans=ans*10 + int(val)
+            else:
+                break
+        ans= ans*sign
+        MIN_INT = -2**31
+        MAX_INT = 2**31 - 1
 
-             
+        ans = max(MIN_INT, min(ans, MAX_INT))
+        return ans
+
+        
+
+        

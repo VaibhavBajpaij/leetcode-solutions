@@ -1,20 +1,22 @@
-class Solution(object):
-    def helper(self,n,l,r,s,li):
-        if n==l and n==r:
-            li.append(s)
-            return 
-        if(l<n and l>=r):
-            self.helper(n,l+1,r,s+'(',li)
-        if(r<n and l>r):
-            self.helper(n,l,r+1,s+')',li)
+class Solution:
+    def gen(self,n,i,temp,ans,l,r):
+        if(2*n==len(temp)):
+            ans.append(''.join(temp))
+        
+        if(l<n):
+            temp.append('(')
+            self.gen(n,i+1,temp,ans,l+1,r)
+            temp.pop()
+        if(l>r):
+            temp.append(")")
+            self.gen(n,i+1,temp,ans,l,r+1)
+            temp.pop()
+        
 
+    def generateParenthesis(self, n: int) -> List[str]:
 
-    def generateParenthesis(self, n):
-        """
-        :type n: int
-        :rtype: List[str]
-        """
-        l=[]
-        self.helper(n,0,0,'',l)
-        return l
+        ans=[]
+        temp=[]
+        self.gen(n,0,temp,ans,0,0)
+        return ans
         

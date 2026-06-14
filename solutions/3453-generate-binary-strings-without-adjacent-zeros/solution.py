@@ -1,23 +1,17 @@
-from typing import List
-
 class Solution:
-    def valid(self, n, i, ans, L, pre):
-        if len(ans) == n:
-            L.append("".join(ans))
-            return
-
-        # place 1
-        ans.append("1")
-        self.valid(n, i + 1, ans, L, "1")
-        ans.pop()
-
-        # place 0 if previous wasn't 0
-        if len(ans) == 0 or ans[-1] != "0":
-            ans.append("0")
-            self.valid(n, i + 1, ans, L, "0")
-            ans.pop()
-
+    def valids(self,n,i,ans,v):
+        if(len(v)<=i):
+            ans.append(''.join(v))
+            return 
+        self.valids(n,i+1,ans,v)
+        v[i]="0"
+        self.valids(n,i+2,ans,v)
+        v[i]="1"
+        
     def validStrings(self, n: int) -> List[str]:
-        L = []
-        self.valid(n, 0, [], L, "")
-        return L
+
+        ans=[]
+        v=["1"]*n
+        self.valids(n,0,ans,v)
+        return ans
+        
